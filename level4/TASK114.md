@@ -2,7 +2,7 @@
 
 ---
 
-# Digital Outputs
+# Digital Outputs - Digital Out
 This is a first look at digital outputs with Mbed OS. Before we start, you are advised to download a copy of the module support board schematics (circuit diagram) for future reference.
 
 [A direct link to the schematics is here](../Hardware/ModuleSupportBoard/msb_schematics.pdf)
