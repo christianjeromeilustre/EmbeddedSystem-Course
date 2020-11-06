@@ -72,6 +72,9 @@ public:
         result += u;
         return result;
     }
+
+    // For simplicity, I have changed the return type to void
+    // This simply means we cannot chain these together
     DoubleNumber& operator=(double u) {
         this->setValue(u);
         return *this;
@@ -84,10 +87,13 @@ public:
         this->setValue(s);
         return *this;
     }
+
+    //The following is "slightly dodgy!"
     bool operator==(DoubleNumber& u)
     {
-        // Return a true if u is equal to `this`
-        // ** TO BE DONE BY THE STUDENT **
+        if ( fabs(this->getValue() - u.getValue()) < 0.000001 ) {
+            return true;
+        }
         return false;
     }
 
