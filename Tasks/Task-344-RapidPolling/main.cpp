@@ -1,4 +1,5 @@
 #include "../lib/uopmsb/uop_msb_2_0_0.h"
+#include <chrono>
 using namespace uop_msb_200;
 
 BusIn buttons(BTN1_PIN, BTN2_PIN, BTN3_PIN, BTN4_PIN);
@@ -14,6 +15,9 @@ DigitalOut greenLED(TRAF_GRN1_PIN);     //Green Traffic 1
 //Dual Digit 7-segment Display
 LatchedLED disp(LatchedLED::SEVEN_SEG);
 
+// Timer for the flashing light
+Timer tmr;
+
 int main()
 {
     volatile int count = 0;
@@ -24,17 +28,23 @@ int main()
     DigitalIn& buttonC = buttons[2];
     DigitalIn& buttonD = buttons[3];
 
-    //Configure switches
+    // Configure switches
     buttonC.mode(PullDown);
     buttonD.mode(PullDown);
 
-    //Turn ON the 7-segment display
+    // Turn ON the 7-segment display
     disp.enable(true);
 
+    //Start timer
+    tmr.start();
+
+    // Internal state
     int btnA_prev = buttonA;
     int btnB_prev = buttonB;
     int btnA_curr;
     int btnB_curr;
+    
+    microseconds tm = tmr.elapsed_time();   //Part of the C++ chrono class
     
     while (true) {
 
@@ -43,6 +53,7 @@ int main()
         // ************************************
         btnA_curr = buttonA;
         btnB_curr = buttonB;
+        tm = tmr.elapsed_time();
 
         // ****************************
         // UPDATE IF THERE WAS A CHANGE
@@ -62,8 +73,10 @@ int main()
             // The previous value is now set to the current
             btnA_prev = btnA_curr;
 
+            //**************
             //Update display
-            disp = count;            
+            //**************
+            disp = count;      
         }
 
         // Did button B change?
@@ -80,8 +93,16 @@ int main()
             // The previous value is now set to the current
             btnB_prev = btnB_curr;
 
+            //**************
             //Update display
-            disp = count;               
+            //**************
+            disp = count;              
+        }
+
+        // LED
+        if (tm >= 250ms) {
+            greenLED = !greenLED;
+            tmr.reset();
         }
         
         // Slow it down a bit (and debounce the switches)
