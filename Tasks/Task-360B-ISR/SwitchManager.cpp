@@ -1,6 +1,9 @@
 #include "SwitchManager.hpp"
 
+// For C++, statics must be explicity created
 volatile uint32_t SwitchManager::count = 0;
+
+// Member functions
 
 void SwitchManager::waitForRising() {
   SwitchManager::count++;

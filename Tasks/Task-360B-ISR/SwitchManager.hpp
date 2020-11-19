@@ -30,6 +30,8 @@ public:
     switchInterrupt.fall(NULL);
     t.detach();
   }
+
+  //This is a STATIC member of the CLASS
   static uint32_t getCount() { return count; }
 };
 
