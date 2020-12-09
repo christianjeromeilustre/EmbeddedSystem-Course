@@ -11,8 +11,8 @@ PwmOut dispBackLight(LCD_BKL_PIN);
 int main()
 {
     //Configure the PWM for the backlight 
-    dispBackLight.period(0.001f);
-    dispBackLight.write(1.0);
+    dispBackLight.period(0.001f);   // 1ms
+    dispBackLight.write(1.0);       // 100% duty
 
     //Update display
     disp.cls();
@@ -36,13 +36,13 @@ int main()
         
         //Once every 100ms, re-read the POT and update the duty
         if (tmr.elapsed_time() >= 250ms) {
-            float u = pot;
-            dispBackLight.write(u);
+            float u = pot;              // Every 250ms, read the pot... 
+            dispBackLight.write(u);     // ... and update the brightness.
             tmr.reset();
         }
         
-        //Other code here
-
+        //Other non-blocking code could go here
+        
     }
 
 }
