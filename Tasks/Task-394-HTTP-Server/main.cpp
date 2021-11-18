@@ -11,6 +11,9 @@ using namespace std;
 #include "EthernetInterface.h"
 #include "TCPSocket.h"
  
+
+ // HTTP string template. The {{0}} is a placeholder and will be replaced with a numerical value
+ // Note how \ is used to break a string across lines without adding additional characters
 #define HTTP_STATUS_LINE "HTTP/1.0 200 OK"
 #define HTTP_HEADER_FIELDS "Content-Type: text/html; charset=utf-8"
 #define HTTP_MESSAGE_BODY ""                                     \
