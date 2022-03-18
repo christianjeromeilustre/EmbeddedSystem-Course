@@ -24,6 +24,10 @@ bool myFunc(int a, int b) {
     return (a > b) ? true : false;
 } 
      
+bool myOtherFunc(int a, int b) {
+    return (a < b) ? true : false;
+} 
+
 int main()
 {
     bool (*fPointer)(int, int);
